@@ -7,11 +7,17 @@
     "python.analysis.extraPaths": [
         "",
         "c:\\Users\\sidpr\\.vscode\\extensions\\joedevivo.vscode-circuitpython-0.1.20-win32-x64\\stubs",
-        "c:\\Users\\sidpr\\AppData\\Roaming\\Code\\User\\globalStorage\\joedevivo.vscode-circuitpython\\bundle\\20231013\\adafruit-circuitpython-bundle-py-20231013\\lib"
+        "c:\\Users\\sidpr\\AppData\\Roaming\\Code\\User\\globalStorage\\joedevivo.vscode-circuitpython\\bundle\\20231017\\adafruit-circuitpython-bundle-py-20231017\\lib"
     ],
     "circuitpython.board.version": null,
     "cSpell.words": [
+        "dlev",
         "mido",
+        "rtmidi",
         "sysex"
-    ]
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none"
 }

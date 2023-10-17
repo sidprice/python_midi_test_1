@@ -1,44 +1,43 @@
 """ Class to encapsulate D-Lev SysEx messages """
 
-class d_lev_sysex_message(object):
-    """ Class for processing D-Lev SysEx messages
-    
-        This class uses a list of defined D-Lev SysEx messages.
+from mido import Message
 
-        For sending, it looks up a text-based SysEx message, formats
-        the MIDI message, and sends it to the configured port.
 
-        For received messages, it parses the message and returns
-        a text-base name and value, or reports an error. On error
-        it raises an exception.
+class dlev_sysex(object):
+    """Class for processing D-Lev SysEx messages
+
+    This class uses a list of defined D-Lev SysEx messages.
+
+    For sending, it looks up a text-based SysEx message, formats
+    the MIDI message, and sends it to the configured port.
+
+    For received messages, it parses the message and returns
+    a text-base name and value, or reports an error. On error
+    it raises an exception.
     """
 
-    _dev_l_sysex_messages = {
-        'status' : 'send_states',
-        'hcl' : "select_hcl"
-    }
-
-    _name = ""   """ The name of the SysEx message """
-    _content = ""    """ The content sent to the MIDI device for this sysex command """
+    _dev_l_sysex_messages = {"status": [0x01, 0x02, 0x03], "hcl": [0x02]}
 
     def __init__(self, name):
-        super(d_lev_sysex_message, self).__init__()
-        self._name = name
-        self._content = self._dev_l_sysex_messages[name]
+        self.msg = Message("sysex")
+        self.name = name
+        self.content = self._dev_l_sysex_messages[name]
+        self.msg.data = bytes(self.content)
 
     def get_name(self):
-        """ Return the name of this sysex """
-        return self._name
+        """Return the name of this sysex"""
+        return self.name
 
     def get_content(self):
-        """ Return the formatted content for this sysex message """
-        return self._content
+        """Return the content for this sysex message"""
+        return self.content
 
-    def send(self, sysex_name):
-        pass
+    def get_message(self):
+        return self.msg
+
 
 if __name__ == "__main__":
-    msg = d_lev_sysex_message("status")
+    msg = dlev_sysex("status")
     print(msg.get_name())
     print(msg.get_content())
 

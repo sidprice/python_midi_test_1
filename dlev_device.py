@@ -2,15 +2,14 @@
     Class to encapsulate the D-Lev Device
 """
 
-import rtmidi
 import mido
+import dlev_sysex
 
 
 class dlev_device(object):
     """This class handles all access to the D-Lev MIDI USB device"""
 
     _device_name = "D-Lec Midi 1"
-    _output_port = 0
 
     def __init__(self):
         super(dlev_device, self).__init__()
@@ -27,9 +26,12 @@ class dlev_device(object):
         output_devices = mido.get_output_names()
         try:
             d_lec_index = output_devices.index(self._device_name)
-            _output_port = mido.open_output(output_devices[d_lec_index])
+            self._output_port = mido.open_output(output_devices[d_lec_index])
         except Exception as e:
             raise e
+
+    def send(self, message):
+        self._output_port.send(message.get_message())
 
 
 if __name__ == "__main__":

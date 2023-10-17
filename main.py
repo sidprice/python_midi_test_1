@@ -1,18 +1,19 @@
-# 
+#
 #  Test module for D-Lec MIDI USB ports
-# 
+#
 
-import rtmidi
-import mido
+from dlev_device import dlev_device
+from dlev_sysex import dlev_sysex
+
 
 def main():
-    output_devices = mido.get_output_names()
-    d_lec_index = output_devices.index('D-Lec Midi 1')
-    port = mido.open_output(output_devices[d_lec_index])
-    print(f"Using device \"{output_devices[d_lec_index]}\"")
-    print("Send a CC message as a test")
-    msg = mido.Message('note_on', note=72)
-    port.send(msg)
+    device = dlev_device()
+    device.open()
+    sysex_msg = dlev_sysex("status")
+    device.send(sysex_msg)
+
+    print("main done")
+
 
 if __name__ == "__main__":
     main()
